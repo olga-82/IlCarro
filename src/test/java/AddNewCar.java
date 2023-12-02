@@ -1,9 +1,11 @@
+import manager.TestNgListeners;
 import models.Car;
 import models.User;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
+@Listeners(TestNgListeners.class)
 public class AddNewCar extends TestBase{
 
     @BeforeMethod
@@ -13,6 +15,7 @@ public class AddNewCar extends TestBase{
             app.getUser().login(new User()
                     .withEmail("nefr42@gmail.com")
                     .withPassword("Rita12345$"));
+             app.getUser().buttonOk();
 
     }
     @Test

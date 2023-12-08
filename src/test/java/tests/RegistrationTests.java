@@ -1,3 +1,6 @@
+package tests;
+
+import manager.ProviderData;
 import manager.TestNgListeners;
 import models.User;
 import models.UserLombok;
@@ -7,42 +10,37 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
-@Listeners(TestNgListeners.class)
+
 public class RegistrationTests extends TestBase {
 
 
     @AfterMethod(alwaysRun = true)
     public void postCondAfterMethod(Method method) {
         if (flagNeedLogout) {
-           app.getUser().buttonOk();
+           TestBase.app.getUser().logout();
             flagNeedLogout = false;
             logger.info("flagNeedLogout = " + flagNeedLogout);
             logger.info("method info: " + method.getName());
         } else if (flagNeedOpenMainPage) {
-            app.getUser().buttonLogo();
+            TestBase.app.getUser().buttonLogo();
             flagNeedOpenMainPage = false;
             logger.info("flagNeedOpenMainPage = " + flagNeedOpenMainPage);
         }
 
     }
 
-    @Test
-    public void registrationPositive() {
-        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-        User user = new User()
-                .withName("Sally")
-                .withLastName("Rotten")
-                .withEmail("nefr"+i+"@gmail.com")
-                .withPassword("Rita12300$");
-        app.getUser().openRegestrationForm();
-        app.getUser().fillRegistrationFormWith(user);
-        app.getUser().submitLogin();
+    @Test (dataProvider="userDtoRegPositive",dataProviderClass = ProviderData.class)
+    public void registrationPositive(User user) {
+
+        TestBase.app.getUser().openRegestrationForm();
+        TestBase.app.getUser().fillRegistrationFormWith(user);
+        TestBase.app.getUser().submitLogin();
         logger.info("registrationPositive starts with credentials "
                 + user.getEmail() + " " + user. getPassword());
         flagNeedLogout = true;
         logger.info("flagNeedLogout = " + flagNeedLogout);
-        Assert.assertTrue(app.getUser().isLoggedSuccess());
-       // app.getUser().buttonOk();
+        Assert.assertTrue(TestBase.app.getUser().isLoggedSuccess());
+       app.getUser().buttonOk();
 
 
     }
@@ -54,12 +52,12 @@ public class RegistrationTests extends TestBase {
                 .withLastName("Rotten")
                 .withEmail("nefr"+i+"@gmail.com")
                 .withPassword("Rita12300фыб");
-        app.getUser().openRegestrationForm();
-        app.getUser().fillRegistrationFormWith(user);
-        app.getUser().submitLogin();
+        TestBase.app.getUser().openRegestrationForm();
+        TestBase.app.getUser().fillRegistrationFormWith(user);
+        TestBase.app.getUser().submitLogin();
         flagNeedOpenMainPage=true;
         logger.info("flagNeedOpenMainPage = " + flagNeedOpenMainPage);
-        Assert.assertTrue(app.getUser().isLoggedErrorWrongPassword());
+        Assert.assertTrue(TestBase.app.getUser().isLoggedErrorWrongPassword());
        // app.getUser().buttonLogo();
 
       //  Password must contain 1 uppercase letter, 1 lowercase letter, 1 number and one special symbol of [@$#^&amp;*!]
@@ -72,12 +70,12 @@ public class RegistrationTests extends TestBase {
                 .withLastName("Rotten")
                 .withEmail("nefr"+i+"gmail.com")
                 .withPassword("Rita12300$");
-        app.getUser().openRegestrationForm();
-        app.getUser().fillRegistrationFormWith(user);
-        app.getUser().submitLogin();
+        TestBase.app.getUser().openRegestrationForm();
+        TestBase.app.getUser().fillRegistrationFormWith(user);
+        TestBase.app.getUser().submitLogin();
         flagNeedOpenMainPage=true;
         logger.info("flagNeedOpenMainPage = " + flagNeedOpenMainPage);
-        Assert.assertTrue(app.getUser().isLoggedErrorWrongEmail());
+        Assert.assertTrue(TestBase.app.getUser().isLoggedErrorWrongEmail());
        // app.getUser().buttonLogo();
 
 
@@ -93,19 +91,19 @@ public class RegistrationTests extends TestBase {
                 .email("nefr"+i+"@gmail.com")
                 .password("")
                 .build();
-        app.getUser().openRegestrationForm();
-        app.getUser().fillRegistrationFormLombok(userLombok);
-        app.getUser().submitLogin();
+        TestBase.app.getUser().openRegestrationForm();
+        TestBase.app.getUser().fillRegistrationFormLombok(userLombok);
+        TestBase.app.getUser().submitLogin();
         flagNeedOpenMainPage=true;
         logger.info("flagNeedOpenMainPage = " + flagNeedOpenMainPage);
-        Assert.assertTrue(app.getUser().isLoggedErrorWrongPassword());
+        Assert.assertTrue(TestBase.app.getUser().isLoggedErrorWrongPassword());
        // app.getUser().buttonLogo();
 
     }
 
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void postcondition(){
 
       //  app.getUser().buttonOk();

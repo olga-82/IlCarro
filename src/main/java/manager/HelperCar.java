@@ -62,5 +62,8 @@ public class HelperCar extends HelperBase {
         rect.clear();
         rect.sendKeys(text);
     }
+    public  void btnCarSuccess(){
+        click(By.xpath("//button[.='Add another car']"));
+    }
 
 }

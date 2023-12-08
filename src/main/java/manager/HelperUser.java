@@ -93,7 +93,10 @@ public class HelperUser extends HelperBase {
     public boolean isLoggedErrorWrongPassword() {
         return isElementPresent(By.xpath("//div/app-registration/form/div[4]/div/div"));
     }
+    public boolean isAddCarSuccess() {
 
+        return isElementPresent(By.xpath("//h1[. ='Car added']"));
+    }
     public boolean isMessageError() {
         return isElementPresent(By.xpath("//div*[.='Password must contain 1 uppercase letter, 1 lowercase letter," +
                 " 1 number and one special symbol of [@$#^&amp;*!]]"));
@@ -103,4 +106,10 @@ public class HelperUser extends HelperBase {
     public boolean isLoggedErrorWrongEmail() {
         return isElementPresent(By.xpath("//div/app-registration/form/div[3]/div/div[1]"));
     }
+    public boolean  isRegistrationErrorWrongPassword() {
+        return isElementPresent(By.xpath("//div[@class ='ng-star-inserted']"));
+    }
+
 }
+
+//div[@class ='ng-star-inserted']

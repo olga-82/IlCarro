@@ -28,6 +28,11 @@ repositories {
     }
 task mytest(type: Test){
     useTestNG() {
+        def groups=System.getProperty('groups')
+        if(groups!=null){
+            includeGroups groups
+        }
+
         def suite =System.getProperty('suite','')
         if(suite.equals('registr')){
             suites 'src/test/resources/registr.xml'
@@ -37,6 +42,12 @@ task mytest(type: Test){
         }
         else if(suite.equals('regression')){
             suites 'src/test/resources/regression.xml'
+        }
+        else if(suite.equals('positive')){
+            suites 'src/test/resources/positive.xml'
+        }
+        else if(suite.equals('positive')){
+            suites 'src/test/resources/negative.xml'
         }
         else{
             suites 'src/test/resources/testng.xml'

@@ -29,7 +29,7 @@ public class RegistrationTests extends TestBase {
 
     }
 
-    @Test (dataProvider="userDtoRegPositive",dataProviderClass = ProviderData.class)
+    @Test (groups = {"positive"},dataProvider="userDtoRegPositive",dataProviderClass = ProviderData.class)
     public void registrationPositive(User user) {
 
         TestBase.app.getUser().openRegestrationForm();
@@ -44,25 +44,19 @@ public class RegistrationTests extends TestBase {
 
 
     }
-    @Test
-    public void registrationNegativeWrongPassword() {
-        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-        User user = new User()
-                .withName("Sally")
-                .withLastName("Rotten")
-                .withEmail("nefr"+i+"@gmail.com")
-                .withPassword("Rita12300фыб");
+    @Test(groups = {"negative"},dataProvider="userDtoRegNegative",dataProviderClass = ProviderData.class)
+    public void registrationNegativeWrongPassword(User user) {
         TestBase.app.getUser().openRegestrationForm();
         TestBase.app.getUser().fillRegistrationFormWith(user);
         TestBase.app.getUser().submitLogin();
         flagNeedOpenMainPage=true;
         logger.info("flagNeedOpenMainPage = " + flagNeedOpenMainPage);
         Assert.assertTrue(TestBase.app.getUser().isLoggedErrorWrongPassword());
-       // app.getUser().buttonLogo();
+
 
       //  Password must contain 1 uppercase letter, 1 lowercase letter, 1 number and one special symbol of [@$#^&amp;*!]
     }
-    @Test
+    @Test(groups = {"negative"})
     public void registrationNegativeWrongEmail() {
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
         User user = new User()
@@ -82,7 +76,7 @@ public class RegistrationTests extends TestBase {
 
 
     }
-    @Test
+    @Test(groups = {"negative"})
     public void registrationNegativeEmptyPassword() {
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
         UserLombok userLombok =  UserLombok.builder()

@@ -51,6 +51,34 @@ public class ProviderData {
 
         return list.iterator();
     }
+    @DataProvider
+    public Iterator<Object[]> userDtoRegNegative() {
+        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
+        List<Object[]> list = new ArrayList<>();
+        list.add(new Object[]{ new User()
+                .withName("Sally")
+                .withLastName("Rotten")
+                .withEmail("nefr"+i+"@gmail.com")
+                .withPassword("Rita12300фыб")
+        });
+        list.add(new Object[]{ new User()
+                .withName("Sally")
+                .withLastName("Rotten")
+                .withEmail("rott"+i+"@gmail.com")
+                .withPassword(" ")
+        });
+        list.add(new Object[]{ new User()
+                .withName("Sally")
+                .withLastName("Rotten")
+                .withEmail("rott"+i+"@gmail.com")
+                .withPassword("123445")
+        });
+
+
+        return list.iterator();
+    }
+
+
 
 
 

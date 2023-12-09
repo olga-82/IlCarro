@@ -26,7 +26,7 @@ public class LoginTests extends TestBase {
 
 
     }
-    @Test(dataProvider="userDto",dataProviderClass = ProviderData.class)
+    @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
     public void loginPositiveUser(User user) {
        TestBase.app.getUser().login(user);
         flagNeedLogout=true;
@@ -38,7 +38,7 @@ public class LoginTests extends TestBase {
 
 
     }
-    @Test(dataProvider="userDto",dataProviderClass = ProviderData.class)
+    @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
     public void loginPositiveUser2(User user) {
         TestBase.app.getUser().login(user);
         flagNeedLogout=true;
@@ -46,7 +46,7 @@ public class LoginTests extends TestBase {
         TestBase.app.getUser().buttonOk();
 
     }
-    @Test(dataProvider="userDto",dataProviderClass = ProviderData.class)
+    @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
     public void loginPositiveUserDTO(User user) {
         TestBase.app.getUser().login(user);
         flagNeedLogout=true;
@@ -54,7 +54,7 @@ public class LoginTests extends TestBase {
         TestBase.app.getUser().buttonOk();
 
     }
-    @Test
+    @Test(groups = {"positive"})
     public void loginPositiveUserLombok() {
         UserLombok user =  UserLombok.builder()
                 .email("nefr42@gmail.com")
@@ -66,7 +66,7 @@ public class LoginTests extends TestBase {
         TestBase.app.getUser().buttonOk();
 
     }
-    @Test
+    @Test(groups = {"negative"})
     public void loginNegativeWrongEmail() {
         UserLombok user =  UserLombok.builder()
                 .email("nefr4@gmail.com")
@@ -78,7 +78,7 @@ public class LoginTests extends TestBase {
         TestBase.app.getUser().buttonOk();
 
     }
-    @Test
+    @Test(groups = {"negative"})
     public void loginNegativeWrongPassword() {
         UserLombok user =  UserLombok.builder()
                 .email("nefr42@gmail.com")

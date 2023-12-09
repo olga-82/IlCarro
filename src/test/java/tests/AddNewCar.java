@@ -24,7 +24,7 @@ public class AddNewCar extends TestBase {
              TestBase.app.getUser().buttonOk();
 
     }
-    @Test
+    @Test(groups = {"positive"})
     public void addNewCarPositive() {
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
      Car car = Car.builder()

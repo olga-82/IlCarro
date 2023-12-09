@@ -65,7 +65,7 @@ public class AplicationManager {
 
         wd.manage().window().maximize();
         wd.navigate().to("https://ilcarro.web.app/search)");
-        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
     }
 

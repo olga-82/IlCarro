@@ -13,7 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class AplicationManager {
@@ -24,6 +29,7 @@ public class AplicationManager {
     HelperUser user;
     HelperCar car;
     HelperSearch search;
+    Properties properties;
 
     public HelperSearch getSearch() {
         return search;
@@ -35,8 +41,10 @@ public class AplicationManager {
         return car;
     }
 
-    public AplicationManager(String browser) {
+    public  AplicationManager(String browser) {
+        properties = new Properties();
         this.browser = browser;
+
     }
 
     public HelperUser getUser() {
@@ -44,8 +52,18 @@ public class AplicationManager {
         return user;
     }
 
+    public String getEmail() {
+        return properties.getProperty("web.email");
+    }
+    public String getPassword() {
+        return properties.getProperty("web.password");
+    }
+
     @BeforeSuite(alwaysRun = true)
-    public void init() {
+    public void init() throws IOException {
+       // properties.load(new FileReader(new File("src/test/resources/prod.properties")));
+        String target=System.getProperty("target","prod");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         if(browser.equals(BrowserType.CHROME)) {
             wd = new EventFiringWebDriver(new ChromeDriver());
             logger.info("Test start on Chrome");
@@ -64,7 +82,8 @@ public class AplicationManager {
         wd.register(new WdListener());
 
         wd.manage().window().maximize();
-        wd.navigate().to("https://ilcarro.web.app/search)");
+//        wd.navigate().to("https://ilcarro.web.app/search)");
+        wd.navigate().to(properties.getProperty("web.baseUrl"));
         wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
     }

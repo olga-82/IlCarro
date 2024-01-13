@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
-
+@Listeners(TestNgListeners.class)
 public class LoginTests extends TestBase {
  @AfterMethod(alwaysRun = true)
     public void precondition(Method method){
@@ -29,6 +29,7 @@ public class LoginTests extends TestBase {
     @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
     public void loginPositiveUser(User user) {
        TestBase.app.getUser().login(user);
+       app.getUser().openLoginForm();
         flagNeedLogout=true;
         logger.info("flagNeedLogout = " + flagNeedLogout);
         logger.info(" loginPositiveUser starts with credentials "
@@ -41,9 +42,20 @@ public class LoginTests extends TestBase {
     @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
     public void loginPositiveUser2(User user) {
         TestBase.app.getUser().login(user);
+        app.getUser().openLoginForm();
         flagNeedLogout=true;
         TestBase.app.getUser().isElementPresent(By.xpath("//h1[.='Logged in']")) ;
         TestBase.app.getUser().buttonOk();
+
+    }
+    @Test
+    public void loginPositiveUserProps() {
+
+        app.getUser().pause(2000);
+        app.getUser().login(app.getEmail(),app.getPassword());
+        flagNeedLogout=true;
+        app.getUser().isElementPresent(By.xpath("//h1[.='Logged in']")) ;
+        app.getUser().buttonOk();
 
     }
     @Test(groups = {"positive"},dataProvider="userDto",dataProviderClass = ProviderData.class)
@@ -54,6 +66,7 @@ public class LoginTests extends TestBase {
         TestBase.app.getUser().buttonOk();
 
     }
+
     @Test(groups = {"positive"})
     public void loginPositiveUserLombok() {
         UserLombok user =  UserLombok.builder()

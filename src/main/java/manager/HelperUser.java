@@ -38,7 +38,8 @@ public class HelperUser extends HelperBase {
     }
 
     public void fillLoginForm(User user) {
-        type(By.xpath(" //input[@id='email']"), user.getEmail());
+        pause(2000);
+        type(By.xpath("//input[@autocomplete='username']"), user.getEmail());
         type(By.xpath(" //input[@id='password']"), user.getPassword());
     }
     public void fillRegistrationFormLombok(UserLombok user) {
@@ -73,13 +74,16 @@ public class HelperUser extends HelperBase {
 
 
     public void login(User user) {
+        pause(2000);
         openLoginForm();
+        pause(2000);
         fillLoginForm(user);
         submitLogin();
 
 
     }
     public void loginLombok(UserLombok user) {
+        pause(2000);
         openLoginForm();
         fillLoginForm(user.getEmail(), user.getPassword());
         submitLogin();
@@ -110,6 +114,12 @@ public class HelperUser extends HelperBase {
         return isElementPresent(By.xpath("//div[@class ='ng-star-inserted']"));
     }
 
+    public void login(String email, String password) {
+        openLoginForm();
+        fillLoginForm(email, password);
+        submitLogin();
+
+    }
 }
 
 //div[@class ='ng-star-inserted']

@@ -14,33 +14,33 @@ public void postMethod(){
 }
 
     @Test(groups = {"positive"})
-    public void SearchTests() {
+    public void SearchTestsDateString() {
 
-  app.getSearch().fillSearhForm();
+  app.getSearch().fillSearchForm("Tel Aviv","12/10/2023","12/20/2023");
   app.getSearch().pause(2000);
- Assert.assertTrue( app.getSearch().isCarPresent());
+   Assert.assertTrue( app.getSearch().isCarPresent());
 
 
 
     }
     @Test(groups = {"positive"})
-    public void SearchTests2(){
+    public void SearchTestsFormPeriodDaysDatePicker(){
 
-        app.getSearch().fillSearhForm2();
+        app.getSearch().fillSearchFormPeriodDaysDatePicker("Tel Aviv","12/15/2023","12/21/2023");
         app.getSearch().pause(2000);
        Assert.assertTrue( app.getSearch().isCarPresent());
     }
 
     @Test(groups = {"positive"})
-    public void SearchTests3(){
-        app.getSearch().fillSearhForm3();
+    public void SearchTestsMyMethod(){
+        app.getSearch().fillSearchForm3();
         app.getSearch().pause(2000);
         Assert.assertTrue( app.getSearch().isCarPresent());
     }
     @Test(groups = {"positive"})
-    public void SearchTests4(){
+    public void SearchTestsFormPeriodYearsDate(){
 
-        app.getSearch().fillSearhForm4();
+        app.getSearch().fillSearchFormPeriodYearsDate("Tel Aviv","12/12/2023","03/21/2024");
         app.getSearch().pause(2000);
         Assert.assertTrue( app.getSearch().isCarPresent());
     }
@@ -48,10 +48,3 @@ public void postMethod(){
 
 
 }
-//*[@id='sat-datepicker-0']
-//*[@aria-label='Next month']
-//button[@aria-label='Previous month']
-//td[@aria-label ='January 5, 2024']
-//td[@aria-label ='January 15, 2024']
-//td[@aria-label ='December 14, 2023']
-//td[@aria-label ='December 24, 2023']

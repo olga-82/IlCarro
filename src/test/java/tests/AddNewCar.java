@@ -18,10 +18,15 @@ public class AddNewCar extends TestBase {
     public void Preconditions() {
         if (!TestBase.app.getUser().isLogged())
 
-            TestBase.app.getUser().login(new User()
-                    .withEmail("nefr42@gmail.com")
-                    .withPassword("Rita12345$"));
-             TestBase.app.getUser().buttonOk();
+
+            app.getUser().login(app.getEmail(), app.getPassword());
+            app.getUser().buttonOk();
+//
+//
+//        TestBase.app.getUser().login(new User()
+//                    .withEmail("nefr42@gmail.com")
+//                    .withPassword("Rita12345$"));
+//             TestBase.app.getUser().buttonOk();
 
     }
     @Test(groups = {"positive"})

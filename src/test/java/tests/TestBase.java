@@ -10,6 +10,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 @Listeners(TestNgListeners.class)
 public class TestBase {
@@ -24,13 +25,13 @@ public class TestBase {
 
 
     @BeforeSuite(alwaysRun = true)
-    public void setUp() {
+    public void setUp() throws IOException {
         app.init();
     }
 
 
 
-    @AfterSuite
+    @AfterSuite(alwaysRun = true)
 
     public void stop() {
        app.tearDown();

@@ -10,7 +10,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
-
+@Listeners(TestNgListeners.class)
 public class RegistrationTests extends TestBase {
 
 
@@ -32,6 +32,21 @@ public class RegistrationTests extends TestBase {
     @Test (groups = {"positive"},dataProvider="userDtoRegPositive",dataProviderClass = ProviderData.class)
     public void registrationPositive(User user) {
 
+       app.getUser().openRegestrationForm();
+       app.getUser().fillRegistrationFormWith(user);
+       app.getUser().submitLogin();
+        logger.info("registrationPositive starts with credentials "
+                + user.getEmail() + " " + user. getPassword());
+        flagNeedLogout = true;
+        logger.info("flagNeedLogout = " + flagNeedLogout);
+        Assert.assertTrue(TestBase.app.getUser().isLoggedSuccess());
+       app.getUser().buttonOk();
+
+
+    }
+    @Test(groups = {"positive"},dataProvider="userDtoCSV",dataProviderClass = ProviderData.class)
+    public void registrationPositiveCSV(User user) {
+
         TestBase.app.getUser().openRegestrationForm();
         TestBase.app.getUser().fillRegistrationFormWith(user);
         TestBase.app.getUser().submitLogin();
@@ -40,7 +55,7 @@ public class RegistrationTests extends TestBase {
         flagNeedLogout = true;
         logger.info("flagNeedLogout = " + flagNeedLogout);
         Assert.assertTrue(TestBase.app.getUser().isLoggedSuccess());
-       app.getUser().buttonOk();
+        app.getUser().buttonOk();
 
 
     }

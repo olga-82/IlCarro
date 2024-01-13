@@ -11,6 +11,7 @@
         <classes>
             <class name="tests.AddNewCar"/>
             <class name="tests.RegistrationTests"/>
+            <class name="tests.SearchTests"/>
         </classes>
     </test>
 </suite>
